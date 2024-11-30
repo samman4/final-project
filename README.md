@@ -629,7 +629,10 @@ ggplot(loocv_results, aes(x = Observed, y = Predicted)) +
 
 ```
 
+## Assessing Interpolation Accuracy: LOOCV
 
+Objective:
+Validate the IDW model using Leave-One-Out Cross-Validation (LOOCV), which systematically removes one observation at a time, predicts its value, and compares the prediction with the observed value.
 
 ```{r}
 # Initialize a vector to store LOOCV predictions
@@ -753,6 +756,9 @@ cat("RMSE for IDW LOOCV:", rmse, "\n")
 
 RMSE for IDW LOOCV: 1.703583 
 
+Description of Validation:
+Observed vs Predicted Scatterplot: Shows the relationship between actual and predicted temperature values.
+RMSE: A lower RMSE indicates better model performance.
 
 ```{r}
 # Plot Observed vs Predicted values
@@ -773,9 +779,10 @@ abline(0, 1, col = "red", lty = 2)  # Add 1:1 line for reference
 
 
 
+## Moran’s I Test and Regression
 
-
-
+Objective:
+Assess the presence of spatial autocorrelation in the climate data and residuals from regression models. This step includes the Moran’s I test for spatial autocorrelation and the application of regression models (OLS and GWR) to analyze the relationship between temperature and wildfire density.
 
 ```{r}
 library(spdep)
@@ -806,6 +813,11 @@ sample estimates:
 Moran I statistic       Expectation          Variance 
       0.400557269      -0.015873016       0.006284728 
 
+    
+Interpretation of Moran’s I Test Results:
+Moran’s I Statistic: Measures the degree of spatial autocorrelation. Values near +1 indicate strong positive spatial autocorrelation, while values near -1 indicate negative spatial autocorrelation.
+P-value: A significant p-value (<0.05) suggests the presence of spatial autocorrelation.
+Conclusion: In this case, the positive Moran’s I statistic and significant p-value confirm the presence of spatial clustering in the temperature data.
 
 
 ## Addressing Spatial Autocorrelation with Geographically Weighted Regression (GWR)
@@ -909,6 +921,40 @@ ggplot(data = regression_data_df) +
 
 ```
 
+Interpretation of GWR Results:
+GWR Coefficients: Display spatial variation in the relationship between temperature and wildfire density. Areas with stronger positive coefficients indicate regions where temperature has a higher influence on fire density.
+Local R-Squared: Indicates the proportion of variance explained by the model at each location. Higher values represent better model performance.
+
+
+## Conclusion
+This project provides a detailed exploration of the spatial relationship between seasonal temperature patterns and wildfire occurrences in British Columbia during the summer of 2021. Through a combination of geospatial analysis, spatial statistics, and regression modeling, several key insights were uncovered:
+
+Temperature and Wildfire Density:
+Spatial analysis revealed that wildfire density is closely associated with temperature patterns. Hotspot areas with higher average temperatures tended to align with regions of increased wildfire activity, particularly in the southern and interior regions of BC.
+The OLS regression model demonstrated a positive relationship between temperature and wildfire density, confirming that temperature plays a significant role in influencing wildfire occurrence.
+Spatial Autocorrelation:
+The Moran's I test confirmed the presence of significant spatial autocorrelation in temperature patterns and residuals, indicating that similar temperature values cluster geographically.
+This spatial dependence justified the need for more advanced modeling techniques, such as Geographically Weighted Regression (GWR), to capture localized variations in the temperature-wildfire relationship.
+Geographically Weighted Regression (GWR):
+GWR revealed that the influence of temperature on wildfire density is not uniform across BC. Some regions showed stronger relationships, suggesting that localized factors, such as vegetation type, land cover, or historical fire management practices, may interact with temperature to drive wildfire dynamics.
+The GWR model also improved model performance by addressing spatial autocorrelation in residuals, highlighting its value for spatially explicit wildfire management strategies.
+Data Integration and Visualization:
+By integrating climate and wildfire data with spatial metadata, we produced informative maps and visualizations, including temperature surfaces, wildfire density maps, and kernel density estimates. These outputs enhance understanding of wildfire risks and support decision-making for resource allocation and preparedness.
+
+## Recommendations
+Wildfire Management:
+Regions with higher GWR coefficients, indicating a stronger relationship between temperature and wildfire density, should be prioritized for proactive wildfire management strategies, such as fuel reduction and community preparedness.
+Early warning systems and resource allocation should consider localized temperature patterns and their influence on wildfire risks.
+Climate Change Adaptation:
+As climate change drives more extreme temperature patterns, this study emphasizes the need for adaptive wildfire management policies that integrate climate projections with spatial analysis.
+Regional variations in the temperature-wildfire relationship suggest that adaptation strategies should be tailored to the specific needs of each area.
+Future Research:
+Expand the analysis to include additional variables, such as precipitation, vegetation, and human activity, to refine our understanding of wildfire drivers.
+Conduct temporal analyses to explore how the temperature-wildfire relationship evolves over multiple seasons or years.
+
+
+
+This study highlights the power of geospatial and statistical methods in understanding complex environmental phenomena like wildfires. By combining advanced spatial techniques with accessible visualizations, the findings offer actionable insights for policymakers, researchers, and the public. As climate change continues to reshape natural systems, such analyses will be crucial in building resilience and mitigating risks in wildfire-prone regions like British Columbia.
 
 
 

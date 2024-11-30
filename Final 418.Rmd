@@ -9,7 +9,7 @@ date: "2024-11-26"
 
 British Columbia (BC) experiences frequent and intense wildfire seasons, particularly during the warmer months from May to October. These wildfires pose significant risks to ecosystems, communities, and infrastructure. With climate change driving increased temperatures, understanding the relationship between rising temperatures and wildfire density has become crucial for effective wildfire management and mitigation strategies.
 
-This project aims to investigate the spatial relationship between seasonal temperature patterns and wildfire occurrences across BC during the summer of 2021. Using geospatial and statistical methods, we will:
+This project investigates the spatial relationship between seasonal temperature patterns and wildfire occurrences across BC during the summer of 2021. Using geospatial and statistical methods, we will:
 
 Analyze spatial patterns of wildfire density and temperature across BC.
 Evaluate the influence of temperature on wildfire density using regression models.
@@ -42,14 +42,11 @@ Address spatial autocorrelation in regression residuals.
 
 The first step in any geospatial analysis is to ensure the raw data is cleaned and prepared for analysis. This process includes importing data, checking for missing or erroneous values, and filtering or merging datasets as necessary. In this case, we aim to prepare climate data for British Columbia (BC) by calculating seasonal average temperatures for each weather station and combining this data with station metadata for spatial mapping.
 
-### Overview
-
-
 The initial step involves cleaning and processing the raw climate data, including ASCII files and metadata. This ensures that the datasets are compatible for subsequent analysis and geospatial visualization.
 
 ### Code
 
-We begin by importing ASCII files containing daily weather data. Each file represents a weather station, and the data includes variables such as precipitation, temperature, and snow depth. The goal is to filter the data for the May–October season and calculate average temperatures for each station.
+We begin by importing ASCII files containing daily weather data. Each file represents a weather station, and the data includes precipitation, temperature, and snow depth variables. The goal is to filter the data for the May–October season and calculate average temperatures for each station.
 
 
 ```{r setup, include=FALSE}

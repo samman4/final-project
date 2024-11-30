@@ -9,7 +9,7 @@ date: "2024-11-26"
 
 British Columbia (BC) experiences frequent and intense wildfire seasons, particularly during the warmer months from May to October. These wildfires pose significant risks to ecosystems, communities, and infrastructure. With climate change driving increased temperatures, understanding the relationship between rising temperatures and wildfire density has become crucial for effective wildfire management and mitigation strategies.
 
-This project aims to investigate the spatial relationship between seasonal temperature patterns and wildfire occurrences across BC during the summer of 2021. Using geospatial and statistical methods, we will:
+This project investigates the spatial relationship between seasonal temperature patterns and wildfire occurrences across BC during the summer of 2021. Using geospatial and statistical methods, we will:
 
 Analyze spatial patterns of wildfire density and temperature across BC.
 Evaluate the influence of temperature on wildfire density using regression models.
@@ -41,9 +41,6 @@ Address spatial autocorrelation in regression residuals.
 
 
 The first step in any geospatial analysis is to ensure the raw data is cleaned and prepared for analysis. This process includes importing data, checking for missing or erroneous values, and filtering or merging datasets as necessary. In this case, we aim to prepare climate data for British Columbia (BC) by calculating seasonal average temperatures for each weather station and combining this data with station metadata for spatial mapping.
-
-### Overview
-
 
 The initial step involves cleaning and processing the raw climate data, including ASCII files and metadata. This ensures that the datasets are compatible for subsequent analysis and geospatial visualization.
 
@@ -106,21 +103,11 @@ seasonal_data <- do.call(rbind, lapply(ascii_files, process_ascii_file))
 # Save the aggregated data to a CSV file
 write.csv(seasonal_data, "Aggregated_Climate_Data.csv", row.names = FALSE)
 
-
-
-
 ```
-
-
-
-
 
 
 ## Loading and Processing ASCII Climate Data
 The ASCII files contain raw daily climate data for multiple stations. This section explains how we clean and process these files to compute seasonal average temperatures (May–October).
-
-
-
 
 
 ## Merging Climate Data with Metadata
@@ -201,15 +188,8 @@ ggplot() +
 This map visually represents seasonal average temperatures across British Columbia, highlighting regional temperature variations from May to October. Cooler areas appear blue, while warmer areas appear red. This visualization reveals geographical trends, such as warmer temperatures in the southern regions and cooler averages in the mountainous north. The data preparation and transformation steps ensure accurate spatial alignment, making this map a reliable tool for exploring climate variability in BC.
 
 
-
-
-
-
 ## Descriptive Statistics of Climate Data
-In this section, we analyze the descriptive statistics of the seasonal average temperature (TEMP) to summarize the data's key attributes, such as central tendency, variability, and distribution. Descriptive statistics provide a foundational understanding of the dataset, highlighting trends and potential anomalies.
-
-
-
+In this section, we analyze the seasonal average temperature (TEMP) descriptive statistics to summarize the data's key attributes, such as central tendency, variability, and distribution. Descriptive statistics provide a foundational dataset understanding, highlighting trends and potential anomalies.
 
 ```{r}
 # Load required libraries
@@ -251,7 +231,6 @@ descriptive_stats$Value <- round(descriptive_stats$Value, 2)
 descriptive_stats
 
 ```
-
 
 
 The seasonal average temperature distribution is consistent across British Columbia during the analyzed period (May–October). The close alignment between mean and median suggests that the temperatures are symmetrically distributed without significant outliers. Additionally:

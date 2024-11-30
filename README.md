@@ -138,12 +138,9 @@ merged_data <- merged_data %>%
 write.csv(merged_data, "ClimateData_Cleaned_Merged.csv", row.names = FALSE)
 
 
-
 ```
 
-
 In this step, we successfully combined climate data with station metadata to prepare a spatially aware dataset. The inclusion of latitude and longitude allows us to map the seasonal average temperatures across British Columbia. Cleaning the data ensures that all analyses are based on accurate and reliable information. This merged dataset is critical for producing meaningful visualizations and conducting spatial interpolation.
-
 
 ## Visualizing the Climate Data on a Map
 Now that we have a cleaned and merged dataset containing seasonal average temperatures and geographic coordinates, we can visualize this data on a map. This step will help us identify spatial patterns in the climate data across British Columbia.
@@ -182,8 +179,10 @@ ggplot() +
   theme_minimal() +
   theme(legend.position = "bottom")
 
-
 ```
+
+![image](https://github.com/user-attachments/assets/af5ae908-120a-4777-8f3b-619636d5424e)
+
 
 This map visually represents seasonal average temperatures across British Columbia, highlighting regional temperature variations from May to October. Cooler areas appear blue, while warmer areas appear red. This visualization reveals geographical trends, such as warmer temperatures in the southern regions and cooler averages in the mountainous north. The data preparation and transformation steps ensure accurate spatial alignment, making this map a reliable tool for exploring climate variability in BC.
 

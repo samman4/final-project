@@ -16,6 +16,7 @@ This project investigates the spatial relationship between seasonal temperature 
 Analyze spatial patterns of wildfire density and temperature across BC.
 Evaluate the influence of temperature on wildfire density using regression models.
 Address spatial autocorrelation in residuals through advanced techniques like Geographically Weighted Regression (GWR).
+
 By examining these relationships, this study seeks to provide insights into how temperature influences wildfire density and inform wildfire management policies in BC.
 
 
@@ -45,6 +46,18 @@ Address spatial autocorrelation in regression residuals.
 The first step in any geospatial analysis is to ensure the raw data is cleaned and prepared for analysis. This process includes importing data, checking for missing or erroneous values, and filtering or merging datasets as necessary. In this case, we aim to prepare climate data for British Columbia (BC) by calculating seasonal average temperatures for each weather station and combining this data with station metadata for spatial mapping.
 
 The initial step involves cleaning and processing the raw climate data, including ASCII files and metadata. This ensures that the datasets are compatible for subsequent analysis and geospatial visualization.
+
+Data Sources
+Wildfire Points (Shapefile):
+Path: /Users/swhitten/Downloads/C_FIRE_PNT_point/C_FIRE_PNT_point.shp
+Contains spatial wildfire data for BC during the summer of 2024.
+Station Metadata (CSV):
+Path: /Users/swhitten/Downloads/station-metadata-by-history-3.csv
+Metadata for weather stations, including their IDs and locations.
+Climate Data (ASCII Files):
+Folder: /Users/swhitten/Downloads/EC/
+Contains daily records for temperature, precipitation, and snow depth from multiple weather stations.
+
 
 ### Code
 
@@ -147,6 +160,10 @@ In this step, we successfully combined climate data with station metadata to pre
 ## Visualizing the Climate Data on a Map
 Now that we have a cleaned and merged dataset containing seasonal average temperatures and geographic coordinates, we can visualize this data on a map. This step will help us identify spatial patterns in the climate data across British Columbia.
 
+Objective:
+Visualize the cleaned and merged seasonal temperature data for British Columbia to identify spatial patterns.
+
+Using the cleaned dataset (ClimateData_Cleaned_Merged.csv), we can overlay temperature data points on BC’s boundary map. This helps in identifying regions with higher or lower seasonal temperatures and provides a spatial overview of the dataset
 
 ```{r}
 # Load necessary libraries
@@ -191,6 +208,22 @@ This map visually represents seasonal average temperatures across British Columb
 
 ## Descriptive Statistics of Climate Data
 In this section, we analyze the seasonal average temperature (TEMP) descriptive statistics to summarize the data's key attributes, such as central tendency, variability, and distribution. Descriptive statistics provide a foundational dataset understanding, highlighting trends and potential anomalies.
+
+Objective:
+Summarize the seasonal temperature data using descriptive statistics to understand its central tendencies, variability, and distribution.
+
+Calculating measures such as the mean, median, standard deviation, and skewness can highlight trends or anomalies in the dataset.
+
+Summary Statistics:
+Here are the calculated statistics for seasonal average temperatures across all stations:
+
+Mean Temperature: The average seasonal temperature across BC.
+Median Temperature: The midpoint of the temperature data.
+Standard Deviation: Measures variability in temperatures.
+Skewness: Indicates whether the data is symmetrically distributed.
+Kurtosis: Describes the "peakedness" of the data.
+Coefficient of Variation: Expresses variability as a percentage of the mean.
+
 
 ```{r}
 # Load required libraries
@@ -245,6 +278,14 @@ The slight negative skewness might indicate that a few regions experience slight
 ## Preparing Climate Data for Spatial Analysis
 This section converts the cleaned climate data into a spatial format for mapping and interpolation. Spatial data allows us to analyze geographical trends, overlay datasets, and perform advanced geostatistical techniques.
 
+Objective:
+Transform the cleaned climate data into a spatial format to enable geostatistical analysis and mapping. This step ensures the data is geographically aware, allowing us to overlay datasets and perform advanced spatial operations.
+
+The seasonal average temperature data is formatted as a CSV file. To use this for spatial analysis, we need to convert it into a spatial object, aligning it with a coordinate reference system (CRS) and ensuring compatibility with other geospatial datasets, such as the BC boundary.
+
+
+## Converting Climate Data to a Spatial Format
+We convert the cleaned temperature data into a Spatial or sf object. This allows for spatial visualization, interpolation, and integration with other geographic datasets.
 
 ```{r}
 
@@ -280,7 +321,7 @@ summary(bc_boundary)
 ## Visualization: Mapping Climate Data Points
 
 We visualize the climate data points overlaid on the BC boundary to inspect their spatial distribution.
-
+Once the climate data is spatially formatted, we can overlay it on the BC boundary to validate its spatial alignment and ensure all points fall within the province's boundaries.
 
 ```{r}
 # Load required libraries
@@ -435,6 +476,7 @@ tm_shape(idw_raster_clipped) +
 
 
 ![image](https://github.com/user-attachments/assets/47828fca-b974-47de-b4a0-416ece0a1518)
+
 
 
 

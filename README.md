@@ -9,7 +9,9 @@ date: "2024-11-26"
 
 British Columbia (BC) experiences frequent and intense wildfire seasons, particularly during the warmer months from May to October. These wildfires pose significant risks to ecosystems, communities, and infrastructure. With climate change driving increased temperatures, understanding the relationship between rising temperatures and wildfire density has become crucial for effective wildfire management and mitigation strategies.
 
-This project investigates the spatial relationship between seasonal temperature patterns and wildfire occurrences across BC during the summer of 2021. Using geospatial and statistical methods, we will:
+Hypothesis: Higher seasonal average temperatures correlate with increased wildfire density in British Columbia.
+
+This project investigates the spatial relationship between seasonal temperature patterns and wildfire occurrences across BC during the summer of 2024. Using geospatial and statistical methods, we will:
 
 Analyze spatial patterns of wildfire density and temperature across BC.
 Evaluate the influence of temperature on wildfire density using regression models.

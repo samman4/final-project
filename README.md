@@ -349,7 +349,10 @@ ggplot() +
 
 ![image](https://github.com/user-attachments/assets/afc83364-bc61-448d-adf7-6c08e404789b)
 
-
+Description of Code:
+Loading the Wildfire Data: The shapefile containing wildfire points is loaded into R as an sf object.
+CRS Transformation: The CRS of the wildfire points is transformed to align with the climate data and BC boundary.
+Mapping: Both climate points and wildfire points are plotted over the BC boundary for comparison.
 
 ```{r}
 # Load necessary libraries
@@ -385,7 +388,11 @@ ggplot() +
 
 ![image](https://github.com/user-attachments/assets/03928aa4-8cbd-444f-801d-3ebc4bd54bce)
 
+The map confirms that all data points are correctly placed within British Columbia's boundaries. The colors represent the seasonal average temperatures, ranging from cooler temperatures (blue) to warmer temperatures (red). This spatial representation is crucial for subsequent interpolation and density analyses.
 
+## Exploring Wildfire Hotspots Using Kernel Density Estimation (KDE)
+Objective:
+Highlight regions with a high density of wildfires using kernel density estimation (KDE). This approach identifies "hotspots" of wildfire activity.
 
 ```{r}
 # Load necessary libraries
@@ -430,10 +437,16 @@ ggplot() +
   theme(legend.position = "bottom")
 
 ```
+The KDE map reveals wildfire hotspots across British Columbia:
 
+High-Density Areas: Regions with the highest wildfire activity are highlighted in darker shades.
+Observations: This visualization provides a clear spatial summary of wildfire activity, laying the groundwork for analyzing its relationship with climate data.
 ![image](https://github.com/user-attachments/assets/98d0a848-7a2d-428d-b672-167ac285b8fd)
 
+## Interpolating Climate Data (IDW)
 
+Objective:
+Create a continuous surface of seasonal average temperatures across British Columbia using Inverse Distance Weighting (IDW) interpolation. This method assumes that temperature at unknown locations can be estimated as a weighted average of nearby observations, with closer observations having more influence.
 ```{r}
 
 # Load necessary libraries
@@ -474,6 +487,12 @@ tm_shape(idw_raster_clipped) +
 
 ```
 
+Description of Code:
+Data Transformation: Climate data points and the BC boundary are transformed to a projected CRS for distance-based calculations.
+Grid Creation: A regular grid covering the study area is generated for interpolation.
+IDW Interpolation: Using gstat::idw, temperature values are interpolated across the grid based on the input climate data.
+Clipping to Boundary: The resulting raster is clipped to the BC boundary for visualization.
+Mapping: The interpolated surface is visualized with temperature points overlaid for reference.
 
 ![image](https://github.com/user-attachments/assets/47828fca-b974-47de-b4a0-416ece0a1518)
 

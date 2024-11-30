@@ -230,16 +230,18 @@ descriptive_stats$Value <- round(descriptive_stats$Value, 2)
 descriptive_stats
 
 ```
+![Screenshot 2024-11-30 at 11 20 54 AM](https://github.com/user-attachments/assets/17308e69-00f2-4201-b845-f588c1c8fc0d)
 
 
-The seasonal average temperature distribution is consistent across British Columbia during the analyzed period (May–October). The close alignment between mean and median suggests that the temperatures are symmetrically distributed without significant outliers. Additionally:
 
-The low variability (as indicated by the CV and standard deviation) confirms that temperature patterns do not differ drastically across regions.
+The seasonal average temperature distribution is consistent across British Columbia during the analyzed period (May–October). The close alignment between the mean and median suggests that the temperatures are symmetrically distributed without significant outliers. Additionally:
+
+The low variability (indicated by the CV and standard deviation) confirms that temperature patterns do not drastically differ across regions.
 The slight negative skewness might indicate that a few regions experience slightly lower average temperatures, pulling the tail slightly left.
 
 
 ## Preparing Climate Data for Spatial Analysis
-In this section, we convert the cleaned climate data into a spatial format for mapping and interpolation. Spatial data allows us to analyze geographical trends, overlay datasets, and perform advanced geostatistical techniques.
+This section converts the cleaned climate data into a spatial format for mapping and interpolation. Spatial data allows us to analyze geographical trends, overlay datasets, and perform advanced geostatistical techniques.
 
 
 ```{r}
@@ -300,11 +302,9 @@ ggplot() +
   theme(legend.position = "bottom")
 
 
-
-
 ```
 
-
+![image](https://github.com/user-attachments/assets/afc83364-bc61-448d-adf7-6c08e404789b)
 
 
 
@@ -340,6 +340,7 @@ ggplot() +
 
 ```
 
+![image](https://github.com/user-attachments/assets/03928aa4-8cbd-444f-801d-3ebc4bd54bce)
 
 
 
@@ -387,6 +388,7 @@ ggplot() +
 
 ```
 
+![image](https://github.com/user-attachments/assets/98d0a848-7a2d-428d-b672-167ac285b8fd)
 
 
 ```{r}
@@ -430,6 +432,7 @@ tm_shape(idw_raster_clipped) +
 ```
 
 
+![image](https://github.com/user-attachments/assets/47828fca-b974-47de-b4a0-416ece0a1518)
 
 
 
@@ -466,36 +469,6 @@ ggplot(fire_density_by_temp, aes(x = layer, y = fire_count)) +
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```{r}
 
 # Fire Density Map with Climate Data
@@ -526,6 +499,7 @@ ggplot() +
 ```
 
 
+![image](https://github.com/user-attachments/assets/eba2359e-c235-475e-a6d7-846a8d087ec4)
 
 
 
@@ -589,11 +563,6 @@ ggplot(loocv_results, aes(x = Observed, y = Predicted)) +
     y = "Predicted Temperature (°C)"
   ) +
   theme_minimal()
-
-
-
-
-
 
 ```
 
@@ -671,6 +640,7 @@ tm_shape(ci_raster_masked) +
   )
 
 ```
+![image](https://github.com/user-attachments/assets/d13e784b-251d-491b-a46a-82589803cfc0)
 
 
 ```{r}
@@ -706,6 +676,7 @@ ggplot(regression_data, aes(x = var1.pred, y = residuals)) +
 
 ```
 
+![image](https://github.com/user-attachments/assets/41e75d08-55fe-4346-860b-ea17273a9446)
 
 
 
@@ -716,6 +687,9 @@ rmse <- sqrt(mean((loocv_results$Observed - loocv_results$Predicted)^2, na.rm = 
 cat("RMSE for IDW LOOCV:", rmse, "\n")
 
 ```
+
+RMSE for IDW LOOCV: 1.703583 
+
 
 ```{r}
 # Plot Observed vs Predicted values
@@ -731,91 +705,11 @@ abline(0, 1, col = "red", lty = 2)  # Add 1:1 line for reference
 
 ```
 
-
-
-
-```{r}
-# Ensure grid_sf is properly formatted as SpatialPointsDataFrame
-grid_sp <- as(grid_sf, "Spatial")
-
-```
-
-
-
-```{r}
-# Initialize storage for pseudo-values
-n <- nrow(climate_sp)
-pseudo_values <- matrix(nrow = nrow(grid_sp), ncol = n)
-
-for (i in 1:n) {
-  # Remove the i-th point and predict using remaining data
-  training_data <- climate_sp[-i, ]
-  temp_idw <- idw(TEMP ~ 1, locations = training_data, newdata = grid_sp, idp = 2)
-  
-  # Store pseudo-values
-  pseudo_values[, i] <- n * idw_result$var1.pred - (n - 1) * temp_idw$var1.pred
-}
-
-# Compute confidence intervals
-mean_estimates <- rowMeans(pseudo_values, na.rm = TRUE)
-variance_estimates <- apply((pseudo_values - mean_estimates)^2, 1, sum, na.rm = TRUE) / (n * (n - 1))
-confidence_intervals <- sqrt(variance_estimates)
-
-```
-
-
-
-```{r}
-# Create a raster from confidence intervals
-ci_raster <- rasterFromXYZ(data.frame(st_coordinates(grid_sf), CI = confidence_intervals))
-
-# Clip raster to BC boundaries
-ci_raster_clipped <- mask(ci_raster, as_Spatial(bc_boundary_proj))
-
-# Visualize Confidence Intervals
-tm_shape(ci_raster_clipped) +
-  tm_raster(style = "jenks", palette = "-viridis", title = "Confidence Intervals (95%)") +
-  tm_layout(
-    main.title = "Jackknife Confidence Intervals for IDW",
-    legend.outside = TRUE
-  )
-
-```
+![image](https://github.com/user-attachments/assets/660b6ef0-1fee-48dd-8493-755359296fdc)
 
 
 
 
-```{r}
-# Transform all spatial objects to the same CRS (BC Albers)
-fire_points_proj <- st_transform(fire_points, crs = 3005)  # Fire points
-bc_boundary_proj <- st_transform(bc_boundary, crs = 3005)  # BC boundary
-climate_sf_proj <- st_transform(climate_sf, crs = 3005)    # Climate data
-
-# Create a 2D density plot for fire locations
-fire_coords <- as.data.frame(st_coordinates(fire_points_proj))
-
-ggplot() +
-  geom_sf(data = bc_boundary_proj, fill = "lightgrey", color = "black") +  # BC boundary
-  stat_density_2d(
-    data = fire_coords,
-    aes(x = X, y = Y, fill = ..level..),
-    geom = "polygon",
-    alpha = 0.6,
-    h = c(50000, 50000)  # Bandwidth for density
-  ) +
-  geom_sf(data = climate_sf_proj, aes(color = TEMP), size = 2) +  # Climate data points
-  scale_fill_viridis_c(name = "Fire Density (log scale)", trans = "log10") +  # Fire density
-  scale_color_gradient(low = "blue", high = "red", name = "Temperature (°C)") +  # Temperature
-  labs(
-    title = "Fire Density and Climate Data in British Columbia",
-    subtitle = "Spatial Distribution of Fires with Seasonal Temperature Data",
-    x = "Longitude",
-    y = "Latitude"
-  ) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
-
-```
 
 
 
@@ -837,6 +731,17 @@ print(moran_test)
 
 ```
 
+
+Moran I test under randomisation
+
+data:  climate_sf_proj$TEMP  
+weights: weights    
+
+Moran I statistic standard deviate = 5.2529, p-value = 7.486e-08
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+      0.400557269      -0.015873016       0.006284728 
 
 
 
@@ -881,6 +786,8 @@ ggplot(regression_data, aes(x = TEMP, y = residuals)) +
   theme_minimal()
 
 ```
+![image](https://github.com/user-attachments/assets/d8818e94-1da5-45d4-b1cf-6c4efcf39092)
+
 
 ```{r}
 # Align regression data with spatial coordinates

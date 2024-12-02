@@ -9,7 +9,8 @@ date: "2024-11-26"
 
 British Columbia (BC) faces intense wildfire seasons, especially from May to October. These wildfires present serious dangers to ecosystems, communities, and infrastructure. As climate change leads to rising temperatures, it is vital to comprehend how these increased temperatures relate to wildfire density for effective management and mitigation strategies.
 
-Hypothesis: Higher seasonal average temperatures correlate with increased wildfire density in British Columbia. This study builds on previous research by Getis and Ord (1992), who highlighted the importance of spatial association in environmental phenomena, and Páez and Wheeler (2009), who demonstrated the utility of geographically weighted regression (GWR) in capturing localized variations in spatial relationships. By applying these methods to wildfire occurrences in BC, this project addresses a gap in understanding how temperature patterns drive wildfire density in the region.
+Hypothesis: Elevated seasonal average temperatures are linked to a rise in wildfire density in British Columbia. This study builds on prior work by Getis and Ord (1992), who emphasized the significance of spatial association in environmental events, and Páez and Wheeler (2009), who demonstrated the effectiveness of geographically weighted regression (GWR) in identifying localized variations in spatial relationships. By employing these methodologies to analyze wildfire occurrences in BC, this project aims to address a gap in understanding how temperature patterns influence wildfire density in the region.
+
 
 This project explores how seasonal temperature patterns and wildfire occurrences in BC during the summer of 2024. Employing geospatial and statistical techniques, we aim to:
 Analyze spatial patterns of wildfire density and temperature across BC.
@@ -788,6 +789,10 @@ abline(0, 1, col = "red", lty = 2)  # Add 1:1 line for reference
 Objective:
 Assess the presence of spatial autocorrelation in the climate data and residuals from regression models. This step includes the Moran’s I test for spatial autocorrelation and the application of regression models (OLS and GWR) to analyze the relationship between temperature and wildfire density.
 
+
+Moran's I Test: Moran's I was used to assess spatial autocorrelation in temperature data and regression residuals. Spatial autocorrelation measures the degree to which similar values cluster geographically, which is critical for identifying spatial patterns in wildfire density.
+Geographically Weighted Regression (GWR): GWR was selected to account for spatial heterogeneity in the relationship between temperature and wildfire density. Unlike ordinary least squares (OLS), GWR allows coefficients to vary spatially, capturing localized variations that may influence wildfire risk.
+
 ```{r}
 library(spdep)
 
@@ -878,7 +883,7 @@ if (nrow(coords) != nrow(regression_data_df)) {
 # (Optional: Match by Native.ID or another unique identifier if necessary)
 
 ```
-
+The GWR bandwidth (200 km) was chosen after optimizing for model performance using cross-validation. This value balances local and global effects, ensuring sufficient data points in each neighborhood while retaining spatial variation. Smaller bandwidths might overfit localized patterns, while larger bandwidths risk averaging out important regional differences.
 
 
 ```{r}
@@ -934,6 +939,8 @@ This project thoroughly explores the spatial relationship between seasonal tempe
 
 Temperature and Wildfire Density:
 Spatial analysis showed that wildfire density is strongly linked to temperature trends. Areas with higher average temperatures often correspond with increased wildfire activity, especially in southern and interior regions of BC. The OLS regression model indicated a positive correlation between temperature and wildfire density, reinforcing that temperature significantly affects wildfire occurrences occurrence.
+
+The findings confirm a strong relationship between temperature and wildfire density, consistent with Lu and Wong (2008), who highlighted temperature's role in shaping spatial patterns. Additionally, the kernel density results align with Węglarczyk's (2018) work on identifying spatial hotspots, emphasizing the value of KDE in environmental studies.
 
 Spatial Autocorrelation:
 

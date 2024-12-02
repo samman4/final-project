@@ -828,6 +828,7 @@ Moran’s I Statistic: Measures the degree of spatial autocorrelation. Values ne
 P-value: A significant p-value (<0.05) suggests the presence of spatial autocorrelation.
 Conclusion: In this case, the positive Moran’s I statistic and significant p-value confirm the presence of spatial clustering in the temperature data.
 
+The spatial clustering of wildfires, as revealed by Moran's I and KDE, aligns with the findings of Getis and Ord (1992), who demonstrated the importance of spatial association in understanding environmental phenomena. Similarly, the localized variations captured by GWR reflect the insights of Páez and Wheeler (2009), highlighting how GWR effectively models spatial heterogeneity in environmental data.
 
 ## Addressing Spatial Autocorrelation with Geographically Weighted Regression (GWR)
 Given that Moran's I test results indicate significant spatial autocorrelation in the residuals, the next logical step is to address this by applying geographically weighted regression (GWR). This technique allows the regression coefficients to vary spatially, capturing localized relationships between temperature and fire density.

@@ -964,17 +964,14 @@ These results highlight the necessity of integrating regional temperature data i
 ## Recommendations
 
 Wildfire Management:
-Areas exhibiting elevated GWR coefficients, which suggest a stronger link between temperature and wildfire density, must be prioritized for proactive wildfire management approaches, including fuel reduction and community readiness. Additionally, early warning systems and resource distribution should take localized temperature trends and their impact on wildfire risks into account.
+Areas exhibiting elevated GWR coefficients, which suggest a stronger link between temperature and wildfire density, must be prioritized for proactive wildfire management approaches, including fuel reduction and community readiness. Additionally, early warning systems and resource distribution should take localized temperature trends and their impact on wildfire risks into account.For regions with high GWR coefficients, such as the southern BC interior, targeted wildfire prevention strategies should include prescribed burns and vegetation management to reduce fuel loads. Additionally, enhancing fire detection systems in these areas could mitigate the impact of future wildfires. 
 
 Climate Change Adaptation:
 As climate change drives more extreme temperature patterns, this study emphasizes the need for adaptive wildfire management policies that integrate climate projections with spatial analysis.
 Regional variations in the temperature-wildfire relationship suggest that adaptation strategies should be tailored to each area's needs.
 
 Future Research:
-To refine our understanding of wildfire drivers, we will expand the analysis to include additional variables, such as precipitation, vegetation, and human activity.
-Conduct temporal analyses to explore how the temperature-wildfire relationship evolves over multiple seasons or years.
-
-
+To refine our understanding of wildfire drivers, we will expand the analysis to include additional variables, such as precipitation, vegetation, and human activity. Conduct temporal analyses to explore how the temperature-wildfire relationship evolves over multiple seasons or years.Incorporating additional variables, such as precipitation patterns and vegetation density, could further elucidate the drivers of wildfire density. Moreover, longitudinal analyses spanning multiple fire seasons would help capture temporal variations in climate-fire dynamics.
 
 This research emphasizes the importance of geospatial and statistical techniques for comprehending complex environmental issues such as wildfires. By merging sophisticated spatial methods with easily interpretable visual representations, the results provide valuable insights for policymakers, scientists, and the general public. As climate change increasingly impacts natural ecosystems, such studies will be essential in enhancing resilience and reducing risks in regions susceptible to wildfires, like British Columbia.
 

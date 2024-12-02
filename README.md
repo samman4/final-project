@@ -7,23 +7,20 @@ date: "2024-11-26"
 ## Introduction
 
 
-British Columbia (BC) experiences frequent and intense wildfire seasons, particularly during the warmer months from May to October. These wildfires pose significant risks to ecosystems, communities, and infrastructure. With climate change driving increased temperatures, understanding the relationship between rising temperatures and wildfire density has become crucial for effective wildfire management and mitigation strategies.
+British Columbia (BC) faces intense wildfire seasons, especially from May to October. These wildfires present serious dangers to ecosystems, communities, and infrastructure. As climate change leads to rising temperatures, it is vital to comprehend how these increased temperatures relate to wildfire density for effective management and mitigation strategies.
 
 Hypothesis: Higher seasonal average temperatures correlate with increased wildfire density in British Columbia.
 
-This project investigates the spatial relationship between seasonal temperature patterns and wildfire occurrences across BC during the summer of 2024. Using geospatial and statistical methods, we will:
-
+This project explores how seasonal temperature patterns and wildfire occurrences in BC during the summer of 2024. Employing geospatial and statistical techniques, we aim to:
 Analyze spatial patterns of wildfire density and temperature across BC.
-Evaluate the influence of temperature on wildfire density using regression models.
-Address spatial autocorrelation in residuals through advanced techniques like Geographically Weighted Regression (GWR).
 
-By examining these relationships, this study seeks to provide insights into how temperature influences wildfire density and inform wildfire management policies in BC.
+Assess the impact of temperature on wildfire density with regression models. Manage spatial autocorrelation in residuals by employing advanced methods such as Geographically Weighted Regression (GWR).
 
+This study aims to analyze the relationships between temperature and wildfire density and guide wildfire management policies in BC.
 
 Why British Columbia?
 
-BC’s diverse geography, ranging from temperate rainforests to arid plateaus, creates varying wildfire risks influenced by local climate conditions. In 2021, the province experienced one of its most severe wildfire seasons, exacerbated by record-breaking heat waves. These unique conditions make BC an ideal study area for exploring climate-wildfire relationships.
-
+British Columbia's varied geography, which includes everything from temperate rainforests to dry plateaus, leads to differing wildfire risks shaped by local climate factors. In 2021, the province faced one of its most intense wildfire seasons, worsened by unprecedented heat waves. These exceptional circumstances make BC a prime location for studying the connections between climate and wildfires.
 
 Objectives
 
@@ -38,14 +35,16 @@ Explore localized variations in the temperature-wildfire relationship.
 Address spatial autocorrelation in regression residuals.
 
 
+
 ---
 
 ## Data Cleaning and Preparation
 
 
-The first step in any geospatial analysis is to ensure the raw data is cleaned and prepared for analysis. This process includes importing data, checking for missing or erroneous values, and filtering or merging datasets as necessary. In this case, we aim to prepare climate data for British Columbia (BC) by calculating seasonal average temperatures for each weather station and combining this data with station metadata for spatial mapping.
+The initial phase of any geospatial analysis involves cleaning and preparing the raw data. This includes importing the data, identifying missing or incorrect values, and filtering or merging datasets as needed. Here, our objective is to prepare climate data for British Columbia (BC) by calculating the seasonal average temperatures for each weather station and integrating this data with station metadata for spatial mapping.
 
-The initial step involves cleaning and processing the raw climate data, including ASCII files and metadata. This ensures that the datasets are compatible for subsequent analysis and geospatial visualization.
+The first step is to clean and process the raw climate data, which includes ASCII files and metadata. This process guarantees that the datasets are ready for later analysis and geospatial visualization.
+
 
 Data Sources
 Wildfire Points (Shapefile):
@@ -61,8 +60,7 @@ Contains daily records for temperature, precipitation, and snow depth from multi
 
 ### Code
 
-We begin by importing ASCII files containing daily weather data. Each file represents a weather station, and the data includes variables such as precipitation, temperature, and snow depth. The goal is to filter the data for the May–October season and calculate average temperatures for each station.
-
+We start by importing ASCII files that hold daily weather data. Each file corresponds to a weather station and contains precipitation, temperature, and snow depth variables. We aim to filter this data for the May to October season and compute average temperatures for every station.
 
 ```{r setup, include=FALSE}
 # Load necessary libraries
@@ -124,10 +122,8 @@ write.csv(seasonal_data, "Aggregated_Climate_Data.csv", row.names = FALSE)
 ## Loading and Processing ASCII Climate Data
 The ASCII files contain raw daily climate data for multiple stations. This section explains how we clean and process these files to compute seasonal average temperatures (May–October).
 
-
 ## Merging Climate Data with Metadata
 The next step involves merging the processed climate data (Aggregated_Climate_Data.csv) with the station metadata file to integrate geographical coordinates (latitude and longitude) and other station-specific information. This combined dataset will allow us to visualize the spatial distribution of climate data.
-
 
 ```{r}
 # Load necessary libraries
@@ -155,7 +151,7 @@ write.csv(merged_data, "ClimateData_Cleaned_Merged.csv", row.names = FALSE)
 
 ```
 
-In this step, we successfully combined climate data with station metadata to prepare a spatially aware dataset. The inclusion of latitude and longitude allows us to map the seasonal average temperatures across British Columbia. Cleaning the data ensures that all analyses are based on accurate and reliable information. This merged dataset is critical for producing meaningful visualizations and conducting spatial interpolation.
+In this step, we successfully combined climate data with station metadata to prepare a spatially aware dataset. Including latitude and longitude allows us to map the seasonal average temperatures across British Columbia. Cleaning the data ensures that all analyses are based on accurate and reliable information. This merged dataset is critical for producing meaningful visualizations and conducting spatial interpolation.
 
 ## Visualizing the Climate Data on a Map
 Now that we have a cleaned and merged dataset containing seasonal average temperatures and geographic coordinates, we can visualize this data on a map. This step will help us identify spatial patterns in the climate data across British Columbia.
@@ -163,7 +159,8 @@ Now that we have a cleaned and merged dataset containing seasonal average temper
 Objective:
 Visualize the cleaned and merged seasonal temperature data for British Columbia to identify spatial patterns.
 
-Using the cleaned dataset (ClimateData_Cleaned_Merged.csv), we can overlay temperature data points on BC’s boundary map. This helps in identifying regions with higher or lower seasonal temperatures and provides a spatial overview of the dataset
+Using the cleaned dataset (ClimateData_Cleaned_Merged.csv), we can overlay temperature data points on BC’s boundary map. This helps identify regions with higher or lower seasonal temperatures and provides a spatial dataset overview.
+
 
 ```{r}
 # Load necessary libraries
@@ -225,6 +222,8 @@ Kurtosis: Describes the "peakedness" of the data.
 Coefficient of Variation: Expresses variability as a percentage of the mean.
 
 
+
+
 ```{r}
 # Load required libraries
 library(e1071)
@@ -269,23 +268,26 @@ descriptive_stats
 
 
 
+
+
 The seasonal average temperature distribution is consistent across British Columbia during the analyzed period (May–October). The close alignment between the mean and median suggests that the temperatures are symmetrically distributed without significant outliers. Additionally:
 
 The low variability (indicated by the CV and standard deviation) confirms that temperature patterns do not drastically differ across regions.
-The slight negative skewness might indicate that a few regions experience slightly lower average temperatures, pulling the tail slightly left.
+The slight negative skewness indicates that a few regions experience lower average temperatures, which pulls the tail left.
 
 
 ## Preparing Climate Data for Spatial Analysis
 This section converts the cleaned climate data into a spatial format for mapping and interpolation. Spatial data allows us to analyze geographical trends, overlay datasets, and perform advanced geostatistical techniques.
 
 Objective:
-Transform the cleaned climate data into a spatial format to enable geostatistical analysis and mapping. This step ensures the data is geographically aware, allowing us to overlay datasets and perform advanced spatial operations.
+Transform the cleaned climate data into a spatial format for geostatistical analysis and mapping. This step ensures the data is geographically aware, allowing us to overlay datasets and perform advanced spatial operations.
 
-The seasonal average temperature data is formatted as a CSV file. To use this for spatial analysis, we need to convert it into a spatial object, aligning it with a coordinate reference system (CRS) and ensuring compatibility with other geospatial datasets, such as the BC boundary.
+The seasonal average temperature data is formatted as a CSV file. To use it for spatial analysis, we need to convert it into a spatial object, align it with a coordinate reference system (CRS), and ensure compatibility with other geospatial datasets, such as the BC boundary.
 
 
 ## Converting Climate Data to a Spatial Format
-We convert the cleaned temperature data into a Spatial or sf object. This allows for spatial visualization, interpolation, and integration with other geographic datasets.
+We convert the cleaned temperature data into a Spatial or sf object. This allows spatial visualization, interpolation, and integration with other geographic datasets.
+
 
 ```{r}
 
@@ -320,8 +322,10 @@ summary(bc_boundary)
 
 ## Visualization: Mapping Climate Data Points
 
-We visualize the climate data points overlaid on the BC boundary to inspect their spatial distribution.
-Once the climate data is spatially formatted, we can overlay it on the BC boundary to validate its spatial alignment and ensure all points fall within the province's boundaries.
+To inspect their spatial distribution, we visualize the climate data points overlaid on the BC boundary.
+Once the climate data is spatially formatted, we can overlay it on the BC boundary to validate its spatial alignment and ensure all points fall within the province's borders.
+
+
 
 ```{r}
 # Load required libraries
@@ -441,6 +445,7 @@ The KDE map reveals wildfire hotspots across British Columbia:
 
 High-Density Areas: Regions with the highest wildfire activity are highlighted in darker shades.
 Observations: This visualization provides a clear spatial summary of wildfire activity, laying the groundwork for analyzing its relationship with climate data.
+
 ![image](https://github.com/user-attachments/assets/98d0a848-7a2d-428d-b672-167ac285b8fd)
 
 ## Interpolating Climate Data (IDW)
@@ -569,8 +574,7 @@ ggplot() +
 ## Interpolating Climate Data (IDW)
 Objective:
 
-We will use Inverse Distance Weighting (IDW) interpolation to create a continuous temperature surface based on the seasonal average temperature data. This technique assumes that points closer to each other have more influence on the predicted value than those farther apart.
-
+We will use Inverse Distance Weighting (IDW) interpolation to create a continuous temperature surface based on the seasonal average temperature data. This technique assumes that points closer together exert more influence on the predicted value than those farther apart.
 
 ```{r}
 library(sp)
@@ -821,8 +825,7 @@ Conclusion: In this case, the positive Moran’s I statistic and significant p-v
 
 
 ## Addressing Spatial Autocorrelation with Geographically Weighted Regression (GWR)
-Given the Moran's I test results indicating significant spatial autocorrelation in the residuals, the next logical step is to address this by applying Geographically Weighted Regression (GWR). This technique allows the regression coefficients to vary spatially, capturing localized relationships between temperature and fire density.
-
+Given that Moran's I test results indicate significant spatial autocorrelation in the residuals, the next logical step is to address this by applying geographically weighted regression (GWR). This technique allows the regression coefficients to vary spatially, capturing localized relationships between temperature and fire density.
 
 ```{r}
 # Create a dataset for regression
@@ -922,54 +925,69 @@ ggplot(data = regression_data_df) +
 ```
 
 Interpretation of GWR Results:
-GWR Coefficients: Display spatial variation in the relationship between temperature and wildfire density. Areas with stronger positive coefficients indicate regions where temperature has a higher influence on fire density.
-Local R-Squared: Indicates the proportion of variance explained by the model at each location. Higher values represent better model performance.
+GWR Coefficients: Display spatial variation in the temperature and wildfire density relationship. Areas with stronger positive coefficients indicate regions where temperature influences fire density more.
+Local R-Squared: Indicates the proportion of variance the model explains at each location. Higher values represent better model performance.
 
 
 ## Conclusion
-This project provides a detailed exploration of the spatial relationship between seasonal temperature patterns and wildfire occurrences in British Columbia during the summer of 2021. Through a combination of geospatial analysis, spatial statistics, and regression modeling, several key insights were uncovered:
+This project thoroughly explores the spatial relationship between seasonal temperature patterns and wildfire occurrences in British Columbia during the summer of 2021. Through a combination of geospatial analysis, spatial statistics, and regression modelling, several key insights have been uncovered:
 
 Temperature and Wildfire Density:
-Spatial analysis revealed that wildfire density is closely associated with temperature patterns. Hotspot areas with higher average temperatures tended to align with regions of increased wildfire activity, particularly in the southern and interior regions of BC.
-The OLS regression model demonstrated a positive relationship between temperature and wildfire density, confirming that temperature plays a significant role in influencing wildfire occurrence.
+Spatial analysis showed that wildfire density is strongly linked to temperature trends. Areas with higher average temperatures often correspond with increased wildfire activity, especially in southern and interior regions of BC. The OLS regression model indicated a positive correlation between temperature and wildfire density, reinforcing that temperature significantly affects wildfire occurrences occurrence.
+
 Spatial Autocorrelation:
+
 The Moran's I test confirmed the presence of significant spatial autocorrelation in temperature patterns and residuals, indicating that similar temperature values cluster geographically.
-This spatial dependence justified the need for more advanced modeling techniques, such as Geographically Weighted Regression (GWR), to capture localized variations in the temperature-wildfire relationship.
+This spatial dependence highlights the necessity for advanced modeling techniques like Geographically Weighted Regression (GWR) to capture localized temperature-wildfire variations relationship.
 Geographically Weighted Regression (GWR):
-GWR revealed that the influence of temperature on wildfire density is not uniform across BC. Some regions showed stronger relationships, suggesting that localized factors, such as vegetation type, land cover, or historical fire management practices, may interact with temperature to drive wildfire dynamics.
+
+GWR revealed that the influence of temperature on wildfire density is not uniform across BC. Some regions showed stronger relationships, suggesting that localized factors like vegetation type, land cover, or historical fire management practices may interact with temperature to drive wildfire dynamics.
+
 The GWR model also improved model performance by addressing spatial autocorrelation in residuals, highlighting its value for spatially explicit wildfire management strategies.
 Data Integration and Visualization:
-By integrating climate and wildfire data with spatial metadata, we produced informative maps and visualizations, including temperature surfaces, wildfire density maps, and kernel density estimates. These outputs enhance understanding of wildfire risks and support decision-making for resource allocation and preparedness.
+
+We produced informative maps and visualizations by integrating climate and wildfire data with spatial metadata, including temperature surfaces, wildfire density maps, and kernel density estimates. These outputs enhance understanding wildfire risks and support resource allocation and preparedness decision-making.
+
+This research explored the connection between wildfire occurrences and increasing temperatures in British Columbia, specifically during the summer of 2024. The findings indicated that temperature significantly influences wildfire clustering, with the greatest concentrations found in southern and central BC, where temperatures were the highest. Spatial analyses, such as density maps, regression models, and geographically weighted regression (GWR), confirmed the hypothesis that elevated temperatures are associated with more frequent and clustered wildfires. In contrast, temperature had a reduced effect in northern BC, revealing regional differences in climate-fire dynamics.
+This study effectively demonstrated a connection between temperature and fire in southern BC; however, several limitations were noted. Inaccuracies in interpolated surfaces stemmed from gaps in data surfaces and coverage, especially regarding temperature measurements. The GWR analysis also revealed regions where temperature alone failed to account for fire occurrences fully, indicating a need to incorporate other factors like wind, humidity, and vegetation types for a more thorough understanding.
+
+These results highlight the necessity of integrating regional temperature data into wildfire management plans. Organizations such as the BC Wildfire Service could leverage this information to identify high-risk zones and reduce harm to both communities and ecosystems. Upcoming research should aim to broaden datasets, refine interpolation techniques, and investigate other climatic and human-related influences to strengthen predictive frameworks and adaptation approaches.
 
 ## Recommendations
+
 Wildfire Management:
-Regions with higher GWR coefficients, indicating a stronger relationship between temperature and wildfire density, should be prioritized for proactive wildfire management strategies, such as fuel reduction and community preparedness.
-Early warning systems and resource allocation should consider localized temperature patterns and their influence on wildfire risks.
+Areas exhibiting elevated GWR coefficients, which suggest a stronger link between temperature and wildfire density, must be prioritized for proactive wildfire management approaches, including fuel reduction and community readiness. Additionally, early warning systems and resource distribution should take localized temperature trends and their impact on wildfire risks into account.
+
 Climate Change Adaptation:
 As climate change drives more extreme temperature patterns, this study emphasizes the need for adaptive wildfire management policies that integrate climate projections with spatial analysis.
-Regional variations in the temperature-wildfire relationship suggest that adaptation strategies should be tailored to each area's specific needs.
+Regional variations in the temperature-wildfire relationship suggest that adaptation strategies should be tailored to each area's needs.
+
 Future Research:
-Expand the analysis to include additional variables, such as precipitation, vegetation, and human activity, to refine our understanding of wildfire drivers.
+To refine our understanding of wildfire drivers, we will expand the analysis to include additional variables, such as precipitation, vegetation, and human activity.
 Conduct temporal analyses to explore how the temperature-wildfire relationship evolves over multiple seasons or years.
 
 
 
-This study highlights the power of geospatial and statistical methods in understanding complex environmental phenomena like wildfires. By combining advanced spatial techniques with accessible visualizations, the findings offer actionable insights for policymakers, researchers, and the public. As climate change continues to reshape natural systems, such analyses will be crucial in building resilience and mitigating risks in wildfire-prone regions like British Columbia.
-
+This research emphasizes the importance of geospatial and statistical techniques for comprehending complex environmental issues such as wildfires. By merging sophisticated spatial methods with easily interpretable visual representations, the results provide valuable insights for policymakers, scientists, and the general public. As climate change increasingly impacts natural ecosystems, such studies will be essential in enhancing resilience and reducing risks in regions susceptible to wildfires, like British Columbia.
 
 
 ## Refrences 
 
 
 Getis, A., & Ord, J. K. (1992). The Analysis of Spatial Association by Use of Distance Statistics. Geographical Analysis, 24(3), 189–206. https://doi.org/10.1111/j.1538-4632.1992.tb00261.x
+
 Relevance: This source is fundamental for understanding spatial statistics, particularly tools like Moran’s I and the spatial distribution patterns applied in your wildfire density analysis.
+
 Lu, G. Y., & Wong, D. W. (2008). An adaptive inverse-distance weighting spatial interpolation technique. Computers & Geosciences, 34(9), 1044–1055. https://doi.org/10.1016/j.cageo.2007.07.010
+
 Relevance: This article provides valuable insights into interpolation techniques like IDW, directly supporting your use of IDW for temperature surface creation and validation.
 Páez, A., & Wheeler, D. C. (2009). Geographically weighted regression. In Encyclopedia of GIS. Elsevier. https://doi.org/10.1016/B978-008044910-400447-8
-Relevance: This source explains the Geographically Weighted Regression (GWR) technique, which you used to model localized variations in the relationship between temperature and wildfire density.
-Węglarczyk, S. (2018). Kernel density estimation and its application. ITM Web of Conferences, 23, 00037. https://doi.org/10.1051/itmconf/20182300037
-Relevance: This reference supports your use of Kernel Density Estimation (KDE) for identifying wildfire hotspots, providing a theoretical framework for this spatial analysis method.
 
+Relevance: This source explains the Geographically Weighted Regression (GWR) technique, which you used to model localized variations in the relationship between temperature and wildfire density.
+
+Węglarczyk, S. (2018). Kernel density estimation and its application. ITM Web of Conferences, 23, 00037. https://doi.org/10.1051/itmconf/20182300037
+
+Relevance: This reference supports your use of Kernel Density Estimation (KDE) for identifying wildfire hotspots, providing a theoretical framework for this spatial analysis method.
 
 
 

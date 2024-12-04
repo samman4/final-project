@@ -981,18 +981,11 @@ This research emphasizes the importance of geospatial and statistical techniques
 
 Getis, A., & Ord, J. K. (1992). The Analysis of Spatial Association by Use of Distance Statistics. Geographical Analysis, 24(3), 189–206. https://doi.org/10.1111/j.1538-4632.1992.tb00261.x
 
-Relevance: This source is fundamental for understanding spatial statistics, particularly tools like Moran’s I and the spatial distribution patterns applied in your wildfire density analysis.
-
 Lu, G. Y., & Wong, D. W. (2008). An adaptive inverse-distance weighting spatial interpolation technique. Computers & Geosciences, 34(9), 1044–1055. https://doi.org/10.1016/j.cageo.2007.07.010
 
-Relevance: This article provides valuable insights into interpolation techniques like IDW, directly supporting your use of IDW for temperature surface creation and validation.
 Páez, A., & Wheeler, D. C. (2009). Geographically weighted regression. In Encyclopedia of GIS. Elsevier. https://doi.org/10.1016/B978-008044910-400447-8
 
-Relevance: This source explains the Geographically Weighted Regression (GWR) technique, which you used to model localized variations in the relationship between temperature and wildfire density.
-
 Węglarczyk, S. (2018). Kernel density estimation and its application. ITM Web of Conferences, 23, 00037. https://doi.org/10.1051/itmconf/20182300037
-
-Relevance: This reference supports your use of Kernel Density Estimation (KDE) for identifying wildfire hotspots, providing a theoretical framework for this spatial analysis method.
 
 
 
